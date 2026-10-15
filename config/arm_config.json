@@ -1,0 +1,56 @@
+{
+  "_说明": "R1-7A 七轴机械臂 + Dex1-1 夹爪 · 控制程序主配置。修改后先跑 `python r1ctl.py check` 自检。",
+  "_硬件": "宇树 R1-7A（7 轴，6010×2 / 6014×3 / 5010×2），RS-485 6 Mbps；Dex1-1 夹爪经官方 dex1_1_service（DDS）控制。",
+
+  "port": "/dev/ttyUSB0",
+  "baudrate": 6000000,
+
+  "control": {
+    "_说明": "控制环参数。rate_hz 为指令帧刷新频率；read_timeout_ms 为每次轮询等待状态帧的窗口。",
+    "rate_hz": 200,
+    "read_timeout_ms": 3.0,
+    "csv_log": true,
+    "csv_dir": "logs"
+  },
+
+  "safety": {
+    "_说明": "safe_margin_deg：软限位内缩角度。注意：HOME 零位恰好在 J2/J4 行程边界（0°），默认必须为 0 才能回零；现场若确认零位不在边界，可改为 1~2° 更保守。lost_timeout_ms：连接丢失判定。",
+    "safe_margin_deg": 0.0,
+    "lost_timeout_ms": 500,
+    "temp1_warn_c": 70,
+    "temp1_stop_c": 85,
+    "temp2_warn_c": 90,
+    "temp2_stop_c": 110,
+    "enable_requires_all_online": true
+  },
+
+  "joints": [
+    {"name": "J1", "motor_id": 0, "model": "6010", "min_deg": -156.0, "max_deg": 156.0, "offset_deg": 0.0, "direction": 1, "kp": 25.0, "kd": 1.2, "max_speed_deg_s": 120.0, "tau_guard_nm": null},
+    {"name": "J2", "motor_id": 1, "model": "6010", "min_deg": 0.0, "max_deg": 180.0, "offset_deg": 0.0, "direction": 1, "kp": 30.0, "kd": 1.5, "max_speed_deg_s": 120.0, "tau_guard_nm": null},
+    {"name": "J3", "motor_id": 2, "model": "6014", "min_deg": -20.0, "max_deg": 200.0, "offset_deg": 0.0, "direction": 1, "kp": 18.0, "kd": 0.8, "max_speed_deg_s": 120.0, "tau_guard_nm": null},
+    {"name": "J4", "motor_id": 3, "model": "6014", "min_deg": -180.0, "max_deg": 0.0, "offset_deg": 0.0, "direction": 1, "kp": 14.0, "kd": 0.7, "max_speed_deg_s": 120.0, "tau_guard_nm": null},
+    {"name": "J5", "motor_id": 4, "model": "6014", "min_deg": -130.0, "max_deg": 130.0, "offset_deg": 0.0, "direction": 1, "kp": 8.0, "kd": 0.4, "max_speed_deg_s": 150.0, "tau_guard_nm": null},
+    {"name": "J6", "motor_id": 5, "model": "5010", "min_deg": -30.0, "max_deg": 30.0, "offset_deg": 0.0, "direction": 1, "kp": 4.0, "kd": 0.2, "max_speed_deg_s": 150.0, "tau_guard_nm": null},
+    {"name": "J7", "motor_id": 6, "model": "5010", "min_deg": -90.0, "max_deg": 90.0, "offset_deg": 0.0, "direction": 1, "kp": 3.0, "kd": 0.15, "max_speed_deg_s": 150.0, "tau_guard_nm": null}
+  ],
+
+  "gripper": {
+    "_说明": "Dex1-1 = 单颗 M4010 电机 + 串口转 DDS 服务。backend 可选 dex1_service / mock / none。q_open/q_close 与 grasp_tau_nm 需现场用 `r1ctl.py gripper-test` 标定。",
+    "backend": "dex1_service",
+    "side": "right",
+    "dds_network": "eth0",
+    "cmd_topic_prefix": "rt/dex1",
+    "publish_rate_hz": 100,
+    "kp": 5.0,
+    "kd": 0.05,
+    "q_open": 0.50,
+    "q_close": 0.02,
+    "grasp_tau_nm": null,
+    "settle_tol": 0.03,
+    "timeout_s": 3.0,
+    "mock_close_time_s": 0.24
+  },
+
+  "poses_file": "poses.json",
+  "show_file": "show_script.json"
+}

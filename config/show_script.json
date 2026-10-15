@@ -1,0 +1,18 @@
+{
+  "_说明": "展示动作脚本（对应《展厅机械臂旋转展示方案》8 步动作路径）。节拍 = duration_s / speed_scale。所有时长会再按关节速度上限自动拉长（不会缩短到超速）。cycles=0 表示无限循环。",
+  "name": "phone_rotation_demo",
+  "version": "1.0",
+  "cycles": 0,
+  "speed_scale": 1.0,
+  "steps": [
+    {"step": 1, "action": "pose", "pose": "HOME",     "duration_s": 3.0, "desc": "开机自检，回到待机姿态"},
+    {"step": 2, "action": "pick", "pre_pose": "PRE_PICK", "pose": "PICK", "approach_s": 2.5, "descend_s": 1.2, "close_s": 0.3, "desc": "夹取苹果 17 手机"},
+    {"step": 3, "action": "pose", "pose": "LIFT90",   "duration_s": 4.0, "desc": "从下向上抬升至 90°"},
+    {"step": 4, "action": "pose", "pose": "ROT_L90",  "duration_s": 3.5, "desc": "向左旋转 90°"},
+    {"step": 5, "action": "pose", "pose": "ROT_R90",  "duration_s": 5.0, "desc": "向右旋转 180°（J1 由 -90° 至 +90°）"},
+    {"step": 6, "action": "pose", "pose": "ROT_MID",  "duration_s": 3.0, "desc": "回到中间"},
+    {"step": 7, "action": "wrist_spin", "joint": "J7", "amplitude_deg": 90.0, "cycles": 3, "duration_s": 6.0, "desc": "末端旋转 3 圈（腕部往复，视觉等效；形式待动作评审确认后固化）"},
+    {"step": 8, "action": "place", "pose": "PICK", "approach_s": 2.0, "open_s": 0.3, "retreat_pose": "PRE_PICK", "retreat_s": 1.5, "_说明": "补充步骤：把手机放回取件位并松开夹爪（物理上必须，评审时若确认『不放下』可删除本步并把第 2 步改为仅首循环执行）", "desc": "放回手机"},
+    {"step": 9, "action": "reset", "pose": "HOME",    "duration_s": 3.0, "desc": "复位，进入下一循环"}
+  ]
+}

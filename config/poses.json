@@ -1,0 +1,13 @@
+{
+  "_说明": "关节位姿库（单位：度，顺序 J1~J7）。⚠️ 下列数值全部是示意占位值，未标定；必须在现场用示教模式（python r1ctl.py teach）逐点记录、校准后把 calibrated 改为 true，展示程序才会在真机上运行。",
+  "calibrated": false,
+  "poses": {
+    "HOME":     {"deg": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],   "calibrated": false, "desc": "待机/回零姿态"},
+    "PRE_PICK": {"deg": [0.0, 60.0, 40.0, -50.0, 0.0, 0.0, 0.0], "calibrated": false, "desc": "取件预位（手机台面上方）"},
+    "PICK":     {"deg": [0.0, 72.0, 55.0, -65.0, 0.0, 0.0, 0.0], "calibrated": false, "desc": "取件位（夹爪对准手机）"},
+    "LIFT90":   {"deg": [0.0, 90.0, 25.0, -25.0, 0.0, 0.0, 0.0], "calibrated": false, "desc": "抬升至 90° 展示位"},
+    "ROT_L90":  {"deg": [-90.0, 90.0, 25.0, -25.0, 0.0, 0.0, 0.0], "calibrated": false, "desc": "左旋 90°"},
+    "ROT_R90":  {"deg": [90.0, 90.0, 25.0, -25.0, 0.0, 0.0, 0.0], "calibrated": false, "desc": "右旋 180°（相对左旋位）"},
+    "ROT_MID":  {"deg": [0.0, 90.0, 25.0, -25.0, 0.0, 0.0, 0.0], "calibrated": false, "desc": "回中（J1=0 展示位）"}
+  }
+}

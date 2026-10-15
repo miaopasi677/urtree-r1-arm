@@ -1,0 +1,6 @@
+# 运行必需（真机）
+pyserial>=3.5
+
+# 可选：夹爪经官方 dex1_1_service 控制时需要（Ubuntu 上安装）
+#   git clone https://github.com/unitreerobotics/unitree_sdk2_python
+#   pip install -e ./unitree_sdk2_python
